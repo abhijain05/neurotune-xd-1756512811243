@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebDynpro xmlns="http://www.sap.com/wd/webdynpro">
+  <View name="MaterialDataView">
+    <Title>SAP</Title>
+    <VerticalLayout id="MainLayout" width="100%">
+      <!-- Top header bar section: dropdown and More button -->
+      <HorizontalLayout id="TopHeaderLayout" padding="medium" width="100%">
+        <DropDownByIndex id="SearchDropdown" width="200px" selectedKey="{/SearchOptions/SelectedKey}" onAction="onLeadSelectDropDown">
+          <Items>
+            <CollectionElement text="" key="" /> <!-- Represents the initial empty state of the dropdown -->
+            <CollectionElement text="Search Option 1" key="SO1" />
+            <CollectionElement text="Search Option 2" key="SO2" />
+          </Items>
+        </DropDownByIndex>
+        <TextView id="SpacerText1" width="10px" />
+        <Button id="MoreButton" text="More" onAction="onActionMore" />
+      </HorizontalLayout>
+
+      <ScrollContainer id="MainScrollContainer" width="100%" height="auto">
+        <VerticalLayout id="ContentLayout" width="100%">
+          <!-- Material Data Group -->
+          <Group id="MaterialDataGroup" text="Material Data" width="500px" design="box" padding="medium">
+            <!-- Using MatrixLayout for precise form alignment -->
+            <MatrixLayout id="MaterialDataMatrixLayout" colCount="3" cellPadding="3px">
+              <!-- Row 1: Material Number -->
+              <MatrixHeadCell rowSpan="1" colSpan="1">
+                <Label id="MaterialNumberLabel" text="Material NuMBER:" design="standard" labelFor="MaterialNumberInput" />
+              </MatrixHeadCell>
+              <MatrixCell rowSpan="1" colSpan="2"> <!-- InputField + Button spans 2 columns -->
+                <HorizontalLayout id="MaterialNumberInputLayout">
+                  <InputField id="MaterialNumberInput" value="{/MaterialData/MaterialNumber}" width="200px" />
+                  <Button id="MaterialNumberSearchButton" icon="sap-icon://search" onAction="onActionSearchMaterial" tooltip="Search Material" />
+                </HorizontalLayout>
+              </MatrixCell>
+
+              <!-- Row 2: Created On -->
+              <MatrixHeadCell rowSpan="1" colSpan="1">
+                <Label id="CreatedOnLabel" text="Created On:" design="standard" labelFor="CreatedOnInput" />
+              </MatrixHeadCell>
+              <MatrixCell rowSpan="1" colSpan="2"> <!-- InputField spans 2 columns -->
+                <InputField id="CreatedOnInput" value="{/MaterialData/CreatedOn}" type="date" width="100px" />
+              </MatrixCell>
+
+              <!-- Row 3: Created Time and CHECKBOX 1 -->
+              <MatrixHeadCell rowSpan="1" colSpan="1">
+                <Label id="CreatedTimeLabel" text="Created Time:" design="standard" labelFor="CreatedTimeInput" />
+              </MatrixHeadCell>
+              <MatrixCell rowSpan="1" colSpan="1">
+                <InputField id="CreatedTimeInput" value="{/MaterialData/CreatedTime}" type="time" width="100px" />
+              </MatrixCell>
+              <MatrixCell rowSpan="1" colSpan="1">
+                <CheckBox id="Checkbox1" text="CHECKBOX 1" checked="{/MaterialData/Checkbox1Selected}" onAction="onToggleCheckbox1" />
+              </MatrixCell>
+
+              <!-- Row 4: Created By -->
+              <MatrixHeadCell rowSpan="1" colSpan="1">
+                <Label id="CreatedByLabel" text="Created By:" design="standard" labelFor="CreatedByInput" />
+              </MatrixHeadCell>
+              <MatrixCell rowSpan="1" colSpan="2"> <!-- InputField spans 2 columns -->
+                <InputField id="CreatedByInput" value="{/MaterialData/CreatedBy}" width="150px" />
+              </MatrixCell>
+
+              <!-- Row 5: Material type and CHECKBOX 2 -->
+              <MatrixHeadCell rowSpan="1" colSpan="1">
+                <Label id="MaterialTypeLabel" text="Material type:" design="standard" labelFor="MaterialTypeInput" />
+              </MatrixHeadCell>
+              <MatrixCell rowSpan="1" colSpan="1">
+                <InputField id="MaterialTypeInput" value="{/MaterialData/MaterialType}" width="100px" />
+              </MatrixCell>
+              <MatrixCell rowSpan="1" colSpan="1">
+                <CheckBox id="Checkbox2" text="CHECKBOX 2" checked="{/MaterialData/Checkbox2Selected}" onAction="onToggleCheckbox2" />
+              </MatrixCell>
+
+              <!-- Row 6: Material Group -->
+              <MatrixHeadCell rowSpan="1" colSpan="1">
+                <Label id="MaterialGroupLabel" text="Material Group:" design="standard" labelFor="MaterialGroupInput" />
+              </MatrixHeadCell>
+              <MatrixCell rowSpan="1" colSpan="2"> <!-- InputField spans 2 columns -->
+                <InputField id="MaterialGroupInput" value="{/MaterialData/MaterialGroup}" width="100px" />
+              </MatrixCell>
+
+              <!-- Row for Radio Buttons - positioned below the form fields -->
+              <MatrixCell rowSpan="1" colSpan="3">
+                <!-- Apply padding here to push the radio group content to align with input fields -->
+                <HorizontalLayout id="RadioButtonsLayout" paddingLeft="150px" paddingTop="10px">
+                  <RadioButtonGroup id="RadioGroup" selectedKey="{/MaterialData/SelectedRadioKey}" onAction="onSelectRadio">
+                    <Item text="radio1" key="RADIO1" />
+                    <Item text="radio2" key="RADIO2" />
+                    <Item text="radio3" key="RADIO3" />
+                  </RadioButtonGroup>
+                </HorizontalLayout>
+              </MatrixCell>
+            </MatrixLayout>
+          </Group>
+
+          <!-- Action buttons at the bottom -->
+          <HorizontalLayout id="ActionButtonsLayout" hAlign="center" padding="medium" width="100%">
+            <Button id="GetDataButton" text="GET DATA" onAction="onActionGetData" design="emphasized" />
+            <TextView id="SpacerText2" width="20px" />
+            <Button id="ExitButton" text="EXIT" onAction="onActionExit" />
+          </HorizontalLayout>
+
+          <!-- Message Area at the very bottom -->
+          <MessageArea id="ScreenMessageArea" width="100%" />
+        </VerticalLayout>
+      </ScrollContainer>
+    </VerticalLayout>
+  </View>
+  <Controller name="MaterialDataViewController">
+    <Methods>
+      <Method name="onLeadSelectDropDown" signature="event onAction(String selectedKey)">
+        <!-- Logic to handle selection from the top-left dropdown -->
+      </Method>
+      <Method name="onActionMore" signature="event onAction()">
+        <!-- Logic to handle the 'More' button click -->
+      </Method>
+      <Method name="onActionSearchMaterial" signature="event onAction()">
+        <!-- Logic to handle the search help for Material Number -->
+      </Method>
+      <Method name="onToggleCheckbox1" signature="event onAction(boolean checked)">
+        <!-- Logic to handle CHECKBOX 1 toggle -->
+      </Method>
+      <Method name="onToggleCheckbox2" signature="event onAction(boolean checked)">
+        <!-- Logic to handle CHECKBOX 2 toggle -->
+      </Method>
+      <Method name="onSelectRadio" signature="event onAction(String selectedKey)">
+        <!-- Logic to handle radio button group selection -->
+      </Method>
+      <Method name="onActionGetData" signature="event onAction()">
+        <!-- Logic for fetching data based on input criteria -->
+      </Method>
+      <Method name="onActionExit" signature="event onAction()">
+        <!-- Logic for exiting the screen/application -->
+      </Method>
+    </Methods>
+  </Controller>
+</WebDynpro>
