@@ -1,0 +1,16 @@
+{
+  "SearchOptions": {
+    "SelectedKey": ""
+  },
+  "MaterialData": {
+    "MaterialNumber": "",
+    "CreatedOn": null,
+    "CreatedTime": "00:00:00",
+    "CreatedBy": "",
+    "MaterialType": "",
+    "MaterialGroup": "",
+    "Checkbox1Selected": false,
+    "Checkbox2Selected": false,
+    "SelectedRadioKey": "RADIO1"
+  }
+}

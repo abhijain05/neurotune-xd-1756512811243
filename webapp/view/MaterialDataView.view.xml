@@ -1,17 +1,128 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <mvc:View xmlns:mvc="sap.ui.core.mvc"
-  xmlns="sap.m"
-  xmlns:layout="sap.ui.layout"
-  xmlns:form="sap.ui.layout.form"
-  xmlns:core="sap.ui.core"
-  xmlns:richtexteditor="sap.ui.richtexteditor"
-  xmlns:viz="sap.viz.ui5"
-  controllerName="preview.app.controller.MaterialDataView"
-  displayBlock="true">
-  <Page title="MaterialDataView" enableScrolling="true">
-    <content>
-      <Title id="title_ckhks0vv" text="SAP"/>
-      <Text id="MainLayout" width="100%"/>
-    </content>
-  </Page>
+    xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    controllerName="converted.materialdataview.controller.MaterialDataView"
+    displayBlock="true"
+          xmlns:commons="sap.ui.commons">
+    <Page title="Material Data View" enableScrolling="true">
+        <headerContent>
+            <Toolbar>
+                <content>
+                    <Select id="SearchDropdown" selectedKey="{mockData>/SearchOptions/SelectedKey}"
+                        change="onLeadSelectDropDown">
+                        <items>
+                            <core:Item key="" text=""/>
+                            <core:Item key="SO1" text="Search Option 1"/>
+                            <core:Item key="SO2" text="Search Option 2"/>
+                        </items>
+                    </Select>
+                    <ToolbarSpacer/>
+                    <Button id="MoreButton" text="More" press="onActionMore" tooltip="More Options"/>
+                </content>
+            </Toolbar>
+        </headerContent>
+        <content>
+            <ScrollContainer id="MainScrollContainer" width="100%" height="auto">
+                <layout:VerticalLayout id="ContentLayout" width="100%">
+                    <Group id="MaterialDataGroup" header="Material Data" width="500px" design="Box"
+                        contentPadding="1rem">
+                        <layout:MatrixLayout id="MaterialDataMatrixLayout" columns="3"
+                            width="auto" responsiveLayout="true"  layout="ResponsiveGridLayout">
+                            <layout:MatrixLayoutRow>
+                                <layout:MatrixLayoutCell>
+                                    <Label text="Material Number:" labelFor="MaterialNumberInput"/>
+                                </layout:MatrixLayoutCell>
+                                <layout:MatrixLayoutCell colSpan="2">
+                                    <layout:HorizontalLayout>
+                                        <Input id="MaterialNumberInput" value="{mockData>/MaterialData/MaterialNumber}"
+                                            liveChange="onActionSearchMaterial"/>
+                                        <Button icon="sap-icon://search" press="onActionSearchMaterial"
+                                            tooltip="Search Material"/>
+                                    </layout:HorizontalLayout>
+                                </layout:MatrixLayoutCell>
+                            </layout:MatrixLayoutRow>
+                            <layout:MatrixLayoutRow>
+                                <layout:MatrixLayoutCell>
+                                    <Label text="Created On:" labelFor="CreatedOnInput"/>
+                                </layout:MatrixLayoutCell>
+                                <layout:MatrixLayoutCell colSpan="2">
+                                    <Input id="CreatedOnInput" value="{mockData>/MaterialData/CreatedOn}" type="Date"/>
+                                </layout:MatrixLayoutCell>
+                            </layout:MatrixLayoutRow>
+                            <layout:MatrixLayoutRow>
+                                <layout:MatrixLayoutCell>
+                                    <Label text="Created Time:" labelFor="CreatedTimeInput"/>
+                                </layout:MatrixLayoutCell>
+                                <layout:MatrixLayoutCell>
+                                    <Input id="CreatedTimeInput" value="{mockData>/MaterialData/CreatedTime}"
+                                        type="Time"/>
+                                </layout:MatrixLayoutCell>
+                                <layout:MatrixLayoutCell>
+                                    <CheckBox id="Checkbox1" text="CHECKBOX 1"
+                                        checked="{mockData>/MaterialData/Checkbox1Selected}"
+                                        select="onToggleCheckbox1"/>
+                                </layout:MatrixLayoutCell>
+                            </layout:MatrixLayoutRow>
+                            <layout:MatrixLayoutRow>
+                                <layout:MatrixLayoutCell>
+                                    <Label text="Created By:" labelFor="CreatedByInput"/>
+                                </layout:MatrixLayoutCell>
+                                <layout:MatrixLayoutCell colSpan="2">
+                                    <Input id="CreatedByInput" value="{mockData>/MaterialData/CreatedBy}"/>
+                                </layout:MatrixLayoutCell>
+                            </layout:MatrixLayoutRow>
+                            <layout:MatrixLayoutRow>
+                                <layout:MatrixLayoutCell>
+                                    <Label text="Material type:" labelFor="MaterialTypeInput"/>
+                                </layout:MatrixLayoutCell>
+                                <layout:MatrixLayoutCell>
+                                    <Input id="MaterialTypeInput"
+                                        value="{mockData>/MaterialData/MaterialType}"/>
+                                </layout:MatrixLayoutCell>
+                                <layout:MatrixLayoutCell>
+                                    <CheckBox id="Checkbox2" text="CHECKBOX 2"
+                                        checked="{mockData>/MaterialData/Checkbox2Selected}"
+                                        select="onToggleCheckbox2"/>
+                                </layout:MatrixLayoutCell>
+                            </layout:MatrixLayoutRow>
+                            <layout:MatrixLayoutRow>
+                                <layout:MatrixLayoutCell>
+                                    <Label text="Material Group:" labelFor="MaterialGroupInput"/>
+                                </layout:MatrixLayoutCell>
+                                <layout:MatrixLayoutCell colSpan="2">
+                                    <Input id="MaterialGroupInput"
+                                        value="{mockData>/MaterialData/MaterialGroup}"/>
+                                </layout:MatrixLayoutCell>
+                            </layout:MatrixLayoutRow>
+                            <layout:MatrixLayoutRow>
+                                <layout:MatrixLayoutCell colSpan="3">
+                                    <layout:HorizontalLayout id="RadioButtonsLayout"
+                                        paddingLeft="150px" paddingTop="10px">
+                                        <RadioButtonGroup id="RadioGroup"
+                                            selectedKey="{mockData>/MaterialData/SelectedRadioKey}"
+                                            select="onSelectRadio">
+                                            <items>
+                                                <core:Item text="radio1" key="RADIO1"/>
+                                                <core:Item text="radio2" key="RADIO2"/>
+                                                <core:Item text="radio3" key="RADIO3"/>
+                                            </items>
+                                        </RadioButtonGroup>
+                                    </layout:HorizontalLayout>
+                                </layout:MatrixLayoutCell>
+                            </layout:MatrixLayoutRow>
+                        </layout:MatrixLayout>
+                    </Group>
+                    <layout:HorizontalLayout id="ActionButtonsLayout" hAlign="Center"
+                        contentPadding="1rem" width="100%">
+                        <Button id="GetDataButton" text="GET DATA" press="onActionGetData"
+                            design="Emphasized"/>
+                        <ToolbarSpacer/>
+                        <Button id="ExitButton" text="EXIT" press="onActionExit"/>
+                    </layout:HorizontalLayout>
+                    <MessageArea id="ScreenMessageArea"/>
+                </layout:VerticalLayout>
+            </ScrollContainer>
+        </content>
+    </Page>
 </mvc:View>
